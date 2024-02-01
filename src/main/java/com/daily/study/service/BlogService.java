@@ -2,7 +2,9 @@ package com.daily.study.service;
 
 import com.daily.study.domain.Article;
 import com.daily.study.dto.AddArticleRequest;
+import com.daily.study.dto.UpdateArticleRequest;
 import com.daily.study.repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,24 @@ public class BlogService {
 
     public List<Article> findAll(){
         return blogRepository.findAll();
+    }
+
+    public Article findById(long id){
+        return blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found: " + id));
+    }
+
+    public void delete(long id){
+        blogRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request){
+        Article article = blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found " + id));
+
+        article.update(request.getTitle(), request.getTitle());
+
+        return article;
     }
 }

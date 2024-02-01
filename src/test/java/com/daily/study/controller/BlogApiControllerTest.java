@@ -2,6 +2,7 @@ package com.daily.study.controller;
 
 import com.daily.study.domain.Article;
 import com.daily.study.dto.AddArticleRequest;
+import com.daily.study.dto.UpdateArticleRequest;
 import com.daily.study.repository.BlogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -21,9 +24,11 @@ import javax.print.attribute.standard.JobKOctets;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static java.nio.file.Files.delete;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -75,4 +80,27 @@ class BlogApiControllerTest {
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
         assertThat(articles.get(0).getContent()).isEqualTo(content);
     }
+
+//    @DisplayName("deleteArticle")
+//    @Test
+//    public void deleteArticle() throws Exception{
+//        //given
+//        final String url = "/api/articles/{id}";
+//        final String title = "title";
+//        final String content = "content";
+//
+//        Article savedArticle = blogRepository.save(Article.builder()
+//                .title(title)
+//                .content(content)
+//                .build());
+//
+//        // when
+//        mockMvc.perform(MockMvcRequestBuilders.delete(url, savedArticle.getId())).andExpect(status().isOk());
+//
+//        // then
+//        List<Article> articles = blogRepository.findAll();
+//
+//        assertThat(articles).isEqualTo(" ");
+//    }
+//
 }

@@ -1,0 +1,1 @@
+insert into article (title, content) values ('제목 1', '내용1');
